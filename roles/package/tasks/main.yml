@@ -1,0 +1,17 @@
+---
+- name: 安装CentOS常用包
+  block:
+    - name: 安装EPEL源
+      yum:
+        name: epel-release
+        state: present
+
+    - name: 安装常用系统软件包
+      yum:
+        name: ['git','htop','iftop','iotop','net-tools','sysstat','wget','cmake','ntpdate','iscsi-initiator-utils']
+        state: present
+
+    - name: 安装开发工具包
+      raw: "yum groupinstall -y 'Development tools'"
+
+  when: ansible_system=="Linux" and ansible_distribution=="CentOS" and ansible_distribution_major_version=="7"      

@@ -1,0 +1,59 @@
+---
+- name: 初始化chrony目录
+  file: 
+    name: "{{ item }}" 
+    state: directory
+  with_items:
+  - /etc/chrony
+  - /var/lib/chrony
+  - /var/log/chrony
+
+- name: 移除NTP
+  yum:
+    name: ntp
+    state: absent
+  ignore_errors: yes
+
+- name: 停止Chronyd服务
+  systemd: 
+    name: chronyd
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+
+- name: 下发chronyd二进制文件
+  copy: 
+    src: "chronyd" 
+    dest: /usr/sbin/chronyd 
+    mode: 0755
+
+- name: 创建SystemD服务
+  template: 
+    src: chronyd.service.j2 
+    dest: /etc/systemd/system/chronyd.service
+
+- name: 下发Chrony服务端配置文件
+  template: 
+    src: server.conf.j2 
+    dest: /etc/chrony/chrony.conf
+  when: ('chrony-server' in group_names)
+
+- name: 下发Chrony客户端配置文件
+  template: 
+    src: client.conf.j2 
+    dest: /etc/chrony/chrony.conf
+  when: ('chrony-client' in group_names)
+
+- name: 启动Chronyd
+  systemd: 
+    name: chronyd
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
+
+- name: 等待Chronyd启动完成
+  shell: "systemctl is-active chronyd.service"
+  register: chronyd_status
+  until: '"active" in chronyd_status.stdout'
+  retries: 5
+  delay: 6

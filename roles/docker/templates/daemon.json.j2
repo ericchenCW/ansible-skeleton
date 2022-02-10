@@ -1,0 +1,25 @@
+{
+  "registry-mirrors": [
+    "https://wa4l0lwb.mirror.aliyuncs.com"
+  ],
+  "insecure-registries": [
+    "registry-svc:25000"
+  ],
+  {% if  core  == "gpu" %}
+  "default-runtime": "nvidia",
+    "runtimes": {
+      "nvidia": {
+        "path": "/usr/bin/nvidia-container-runtime",
+        "runtimeArgs": []
+       }
+    },
+  {% endif %}
+  "max-concurrent-downloads": 10,
+  "log-driver": "json-file",
+  "log-level": "warn",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  },
+  "data-root": "{{data_dir}}"
+}

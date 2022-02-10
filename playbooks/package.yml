@@ -1,0 +1,6 @@
+---
+- name: 安装软件包
+  hosts: all
+  remote_user: root
+  roles:
+    - { role: package, tags: package }

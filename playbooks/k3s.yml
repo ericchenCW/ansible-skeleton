@@ -1,0 +1,6 @@
+---
+- name: 部署K3S
+  hosts: k3s
+  remote_user: root
+  roles:
+    - { role: k3s, tags: k3s}
