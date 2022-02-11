@@ -1,11 +1,11 @@
 ---
 - name: 设置服务器环境
   block:
-    - name: 临时设置主机名
-      shell: hostnamectl set-hostname {{hostname|quote}}
+    # - name: 临时设置主机名
+    #   shell: hostnamectl set-hostname {{hostname|quote}}
       
-    - name: 修改hostname文件
-      raw:  "echo {{hostname|quote}} > /etc/hostname"
+    # - name: 修改hostname文件
+    #   raw:  "echo {{hostname|quote}} > /etc/hostname"
 
     - name: 备份 /etc/hosts
       copy:
