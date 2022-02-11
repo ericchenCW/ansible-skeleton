@@ -1,6 +1,0 @@
----
-- name: 安装Docker
-  hosts: all
-  remote_user: root
-  roles:
-    - { role: docker, tags: docker }

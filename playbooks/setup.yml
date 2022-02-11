@@ -1,8 +1,0 @@
----
-- name: 初始化系统环境
-  hosts: all
-  remote_user: root
-  vars:
-    hosts_content: "{{ lookup('file', '../roles/setup/files/host_mapping') }}"
-  roles:
-    - { role: setup, tags: setup }

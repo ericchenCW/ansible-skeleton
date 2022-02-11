@@ -1,6 +1,0 @@
----
-- name: 安装时间同步服务
-  hosts: all
-  remote_user: root
-  roles:
-    - { role: chrony, tags: chrony }
