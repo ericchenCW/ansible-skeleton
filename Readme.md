@@ -10,3 +10,16 @@ Ansible项目骨架
 * library: 客户端模块
 * playbooks: playbook 入口
 * roles: role目录
+* stage: 用于存放暂时搁置的资产清单
+* ansible.cfg: Ansible配置文件
+
+# Ansible Galaxy
+
+Ansible Galaxy 可以用于快速创建Role以及安装社区开放的Role
+
+## 创建一个Role
+
+```
+cd ./roles
+ansible-galaxy init sample
+```
